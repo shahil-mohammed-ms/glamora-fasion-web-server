@@ -5,6 +5,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { ProductModule } from './product/product.module';
+import { WishlistModule } from './wishlist/wishlist.module';
+import { OrderModule } from './order/order.module';
+import { CouponModule } from './coupon/coupon.module';
+import { CartModule } from './cart/cart.module';
 
 @Module({
   imports: [ ConfigModule.forRoot({ isGlobal: true }),
@@ -19,7 +24,12 @@ import { UsersModule } from './users/users.module';
       synchronize: true,
     }),
     AuthModule,
-    UsersModule],
+    UsersModule,
+    ProductModule,
+    WishlistModule,
+    OrderModule,
+    CouponModule,
+    CartModule],
   // controllers: [AppController],
   // providers: [AppService],
 })
