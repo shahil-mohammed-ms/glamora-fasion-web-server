@@ -12,7 +12,6 @@ name:string
 @Column()
 description:string
 
-//  
 
 @Column()
 category:string
@@ -24,7 +23,7 @@ size:string
 imageUrls:string[]
 
 
-@OneToMany(() => ProductVariants, variant => variant.product)
+@OneToMany(() => ProductVariants,  variant => variant.product, { cascade: true })
 variants: ProductVariants[];
 
 @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })

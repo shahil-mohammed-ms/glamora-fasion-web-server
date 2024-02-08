@@ -1,6 +1,9 @@
 import { Products } from "src/product/product.entity";
 import { Users } from "src/users/user.entity";
 import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { OrderStatus } from "./order-status.enum";
+
+
 
 
 @Entity()
@@ -14,8 +17,12 @@ totalPrice:number
 @Column()
 quantity:number
 
-@Column()
-status:string
+@Column({
+  type: "enum",
+  enum: OrderStatus,
+  default: OrderStatus.PENDING,
+})
+status: OrderStatus;
 
 
 @ManyToOne(() => Users, user => user.orders) // Adjusted the usage of @ManyToOne to Users
