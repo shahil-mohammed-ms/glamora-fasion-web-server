@@ -51,7 +51,7 @@ export class CouponController {
      @Param('userId') userId:string
      ) :Promise<any>{
      const coupon = await this.couponService.isCouponAvailable(code);
-     if(!coupon){
+     if(!coupon){ 
       return { message: 'not updated', updated: false };
      }
 
@@ -64,5 +64,13 @@ export class CouponController {
      return couponUpdate
  
    }
+
+//toggle isActive
+
+@Post(':id/toggle')
+async toggleCoupon(@Param('id') id: string) {
+  return this.couponService.toggleCoupon(id);
+}
+
 
 }

@@ -86,4 +86,18 @@ async useCoupon(coupon:any,userId:string):Promise<any>{
 
 }
 
+//toggle active
+async toggleCoupon(id: string): Promise<{ message: string,status:boolean }> {
+  const coupon = await this.couponRepository.findOne({where :{id:id }});
+  if (!coupon) {
+    throw new Error('Coupon not found');
+  }
+
+  coupon.isActive = !coupon.isActive; // Toggle isActive property
+  await this.couponRepository.save(coupon);
+
+  const status = coupon.isActive ? 'enabled' : 'disabled';
+  return { message: `Coupon ${status} successfully`,status:coupon.isActive };
+}
+
 }
