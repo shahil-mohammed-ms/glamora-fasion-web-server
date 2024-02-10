@@ -12,7 +12,19 @@ id:string
 code:string
 
 @Column()
-couponDiscound:number
+limit:number
+
+@Column({ nullable: true })
+couponDiscount:number
+
+@Column({ nullable: true })
+couponReducePrice:number
+
+@Column({ default: true,nullable:true })
+isActive:boolean
+
+@Column('simple-array',) // Array of user IDs who have used the coupon  { default: [] }
+  usedBy: string[];
 
 @Column()
 toDate:Date
