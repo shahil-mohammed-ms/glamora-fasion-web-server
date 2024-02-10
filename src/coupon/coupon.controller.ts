@@ -44,4 +44,25 @@ export class CouponController {
  
    }
 
+   //update coupn by pushing userid and decreament limit by one
+   @Post('/codeupdateorder/:code/:userId')
+   async codeupdateorder(
+     @Param('code') code:string ,
+     @Param('userId') userId:string
+     ) :Promise<any>{
+     const coupon = await this.couponService.isCouponAvailable(code);
+     if(!coupon){
+      return { message: 'not updated', updated: false };
+     }
+
+     const couponStatus = await this.couponService.couponStatus(coupon,userId)
+     if(!couponStatus.couponStatus){
+      return { message: couponStatus.message, updated: false };
+     }
+     const couponUpdate = await this.couponService.useCoupon(couponStatus.data,userId)
+ 
+     return couponUpdate
+ 
+   }
+
 }

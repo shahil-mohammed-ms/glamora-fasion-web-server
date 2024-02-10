@@ -35,30 +35,23 @@ async isCouponAvailable(couponCode:string):Promise<any>{
 }
 // fetches coupon status 
 async couponStatus(coupon:any ,userId:string):Promise<any>{
-console.log(coupon)
   const currentDate = new Date();
   const toDate = new Date(coupon.toDate); // Convert toDate from string to Date object
 
   if(!coupon.isActive){
-    console.log('Wrong coupon code ,code inactive',coupon.isActive)
     return {message:'Wrong coupon code',couponStatus:false,data:coupon};
   }
   
   if(coupon.limit<1){
-    console.log('Coupon limit reached',coupon.limit)
     return {message:'Coupon limit reached',couponStatus:false,data:null};
   }
 
   if (currentDate > toDate) {
-    console.log('Current date has exceeded toDate');
     return {message:'Current date has exceeded toDate',couponStatus:false,data:coupon};
   } 
-  console.log('is id used',coupon.usedBy.includes(userId))
   if (coupon.usedBy.includes(userId)) {
-    console.log('Coupon has already been used');
     return {message:'Coupon has already been used',couponStatus:false,data:null};
   }
-  console.log('Coupon available');
   return {message:'Coupon available',couponStatus:true,data:coupon};
 }
 
@@ -75,5 +68,22 @@ async checkCouponExistance(couponCode:string):Promise<any>{
   }
 }
 
+async useCoupon(coupon:any,userId:string):Promise<any>{
+  // Push the userId to the usedBy array
+  coupon.usedBy.push(userId);
+  // Decrement the limit
+  coupon.limit -= 1;
+ // Save the updated coupon to the database
+ 
+ try {
+  // Save the updated coupon to the database
+  await this.couponRepository.save(coupon);
+  return { message: 'updated', updated: true };
+} catch (error) {
+  console.error('Error updating coupon:', error);
+  return { message: 'not updated', updated: false };
+}
+
+}
 
 }
