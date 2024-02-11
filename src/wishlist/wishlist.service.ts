@@ -10,7 +10,7 @@ export class WishlistService {
     private readonly wishlistRepository: Repository<Wishlists>,
   ) {}
 
-  async createWishlist(wishlistData): Promise<any> {
+  async createWishlist(wishlistData:any): Promise<any> {
     const wishlist = this.wishlistRepository.create(wishlistData);
     return await this.wishlistRepository.save(wishlist);
   }
