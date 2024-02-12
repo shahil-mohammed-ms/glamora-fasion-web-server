@@ -17,7 +17,10 @@ export class ProductService {
   }
 
   async getProducts(): Promise<Products[]> {
-    return await this.productRepository.find({ relations: ['variants'] });
+    const pageNumber = 2; // Current page number
+const itemsPerPage = 2; // Number of items per page
+    return await this.productRepository.find({ relations: ['variants'], skip: (pageNumber - 1) * itemsPerPage,
+    take: itemsPerPage,order: { createdAt: 'DESC' }  });
   }
 
   async getProductById(id: string): Promise<Products | undefined> {
