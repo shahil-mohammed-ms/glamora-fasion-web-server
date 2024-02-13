@@ -16,16 +16,32 @@ export class OrderService {
     return this.orderRepository.save(orderData);
   }
 
+  // async getOrdersByUserId(userId: string): Promise<Orders[]> {
+  //   return this.orderRepository
+  //     .createQueryBuilder('order')
+  //     .leftJoinAndSelect('order.products', 'product')
+  //     .leftJoinAndSelect('order.user', 'user')
+  //     .select(['order', 'product', 'user.id', 'user.username', 'user.email']) // Select only necessary fields
+  //     .where('user.id = :userId', { userId })
+  //     .getMany();
+  // }
   async getOrdersByUserId(userId: string): Promise<Orders[]> {
     return this.orderRepository
       .createQueryBuilder('order')
       .leftJoinAndSelect('order.products', 'product')
       .leftJoinAndSelect('order.user', 'user')
-      .select(['order', 'product', 'user.id', 'user.username', 'user.email']) // Select only necessary fields
+      .leftJoinAndSelect('order.address', 'address') // Join with address entity
+      .select([
+        'order',
+        'product',
+        'user.id',
+        'user.username',
+        'user.email',
+        'address' // Include address details
+      ])
       .where('user.id = :userId', { userId })
       .getMany();
   }
-  
 
   async getOrderById(orderId: string): Promise<Orders> {
     return this.orderRepository

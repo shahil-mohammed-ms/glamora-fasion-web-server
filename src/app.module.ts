@@ -10,6 +10,7 @@ import { WishlistModule } from './wishlist/wishlist.module';
 import { OrderModule } from './order/order.module';
 import { CouponModule } from './coupon/coupon.module';
 import { CartModule } from './cart/cart.module';
+import { AddressModule } from './address/address.module';
 
 @Module({
   imports: [ ConfigModule.forRoot({ isGlobal: true }),
@@ -29,7 +30,8 @@ import { CartModule } from './cart/cart.module';
     WishlistModule,
     OrderModule,
     CouponModule,
-    CartModule],
+    CartModule,
+    AddressModule],
   // controllers: [AppController],
   // providers: [AppService],
 })

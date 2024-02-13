@@ -19,6 +19,9 @@ export class Users {
   @Column()
   isAdmin:boolean
 
+  @Column({ nullable: true })
+  defaultAddressId:string
+
   @OneToMany(()=>Wishlists,wishlists=>wishlists.user)
   wishlists:Wishlists[]
 

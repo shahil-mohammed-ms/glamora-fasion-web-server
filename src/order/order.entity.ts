@@ -1,7 +1,8 @@
 import { Products } from "src/product/product.entity";
 import { Users } from "src/users/user.entity";
-import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { OrderStatus } from "./order-status.enum";
+import { Address } from "src/address/address.entity";
 
 
 
@@ -16,6 +17,13 @@ totalPrice:number
 
 @Column()
 quantity:number
+
+// @Column()
+// addressId:string
+@OneToOne(() => Address)
+  @JoinColumn() // Ensure you have JoinColumn specified for one-to-one relationships
+  address: Address; // This establishes a one-to-one relationship with Address
+
 
 @Column({
   type: "enum",
