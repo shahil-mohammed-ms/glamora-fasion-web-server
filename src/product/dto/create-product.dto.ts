@@ -4,7 +4,7 @@ export class CreateProductDto {
   description: string;
   category: string;
   size: string;
-  imageUrls: string[];
+  // imageUrls: string[];
   variants: {
     size: string;
     price: number;
